@@ -1,0 +1,36 @@
+<!-- <ion-slides *ngIf="showSlides">
+  <ion-slide>
+    <div>
+      <h2>陋室</h2>
+      <p>斯是陋室，惟吾德馨。</p>
+      <ion-button
+        fill="clear"
+        (click)="closeSlide()"
+      >
+        <ion-label>进馆</ion-label>
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-slide>
+</ion-slides> -->
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>首页</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="category">
+      <ion-icon name="library"></ion-icon>
+      <ion-label>馆藏</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="author">
+      <ion-icon name="people"></ion-icon>
+      <ion-label>作家</ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="setting">
+      <ion-icon name="settings"></ion-icon>
+      <ion-label>设置</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

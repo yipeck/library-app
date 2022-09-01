@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-avatar *ngIf="avatar != ''">
+      <img [src]="avatar" />
+    </ion-avatar> -->
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let book of books">
+      <ion-item
+        detail
+        [routerLink]="['/book', book.Id]"
+      >
+        <ion-thumbnail class="default-book-cover" slot="start">
+          <ion-icon name="book-outline" *ngIf="book.Picture ==''"></ion-icon>
+          <ion-img [src]="book.Picture" *ngIf="book.Picture !=''"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-text>
+            <h3>{{book.Title}}</h3>
+          </ion-text>
+          <p>[{{getCountryNameByAuthorId(book.AuthorId)}}]{{getAuthorName(book.AuthorId)}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <!-- <ion-item-option>
+          <ion-icon name="pencil-outline"></ion-icon>
+          修改
+        </ion-item-option> -->
+        <ion-item-option
+          color="danger"
+          (click)="presentDeleteAlert(book.Id)"
+        >
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          <ion-label>删除</ion-label>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

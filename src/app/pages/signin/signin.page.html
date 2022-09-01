@@ -1,0 +1,29 @@
+<h1>陋室</h1>
+
+<ion-content>
+  <ion-item>
+    <ion-label>邮箱</ion-label>
+    <ion-input
+      type="email"
+      [(ngModel)]="Email"
+      (ionBlur)="isExist()"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>密码</ion-label>
+    <ion-input
+      type="password"
+      [(ngModel)]="Password"
+      (ionChange)="isPasswordEmpty()"
+    ></ion-input>
+  </ion-item>
+  <ion-button
+    expand="block"
+    class="sign-in-btn"
+    [disabled]="!isEmailOkay || !isPasswordOkay"
+    (click)="signIn()"
+  >入馆</ion-button>
+  <div>
+    <ion-button fill="clear" [routerLink]="['/signup']">未建馆？</ion-button>
+  </div>
+</ion-content>

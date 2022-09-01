@@ -1,0 +1,18 @@
+.book-cover-item {
+  text-align: center;
+
+  ion-icon {
+    font-size: 128px;
+    --ionicon-stroke-width: 8px;
+  }
+}
+
+.picture-container {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+
+  ion-img {
+    max-width: 80%;
+  }
+}

@@ -1,0 +1,234 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>首页</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setIsOpen(true)">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item detail [routerLink]="['/list', 'status', 1]" routerDirection="back">
+      <ion-label>完成阅读</ion-label>
+      <ion-badge color="primary">{{readedBooksCount}}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>正在阅读</ion-label>
+    </ion-list-header>
+    <div *ngIf="readingBooks.length > 0">
+      <ion-item
+        detail
+        [routerLink]="['/book', book.Id]"
+        *ngFor="let book of readingBooks"
+      >
+        <ion-thumbnail class="default-book-cover" slot="start">
+          <ion-icon name="book-outline" *ngIf="book.Picture ==''"></ion-icon>
+          <ion-img [src]="book.Picture" *ngIf="book.Picture !=''"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-text>
+            <h3>{{book.Title}}</h3>
+          </ion-text>
+          <p>[{{getCountryNameByAuthorId(book.AuthorId)}}]{{getAuthorName(book.AuthorId)}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <ion-button
+      expand="full"
+      fill="clear"
+      *ngIf="readingBooks.length == 0"
+      (click)="setIsOpen(true)"
+    >
+      <ion-icon name="add"></ion-icon>
+      <ion-label>添加图书</ion-label>
+    </ion-button>
+  </ion-list>
+  
+  <ion-list>
+    <ion-list-header>
+      <ion-label>本月购买</ion-label>
+    </ion-list-header>
+    <div *ngIf="boughtBooks.length > 0">
+      <ion-item
+        detail
+        [routerLink]="['/book', book.Id]"
+        *ngFor="let book of boughtBooks"
+      >
+        <ion-thumbnail class="default-book-cover" slot="start">
+          <ion-icon name="book-outline" *ngIf="book.Picture ==''"></ion-icon>
+          <ion-img [src]="book.Picture" *ngIf="book.Picture !=''"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-text>
+            <h3>{{book.Title}}</h3>
+          </ion-text>
+          <p>[{{getCountryNameByAuthorId(book.AuthorId)}}]{{getAuthorName(book.AuthorId)}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <ion-button
+      expand="full"
+      fill="clear"
+      *ngIf="readingBooks.length == 0"
+      (click)="setIsOpen(true)"
+    >
+      <ion-icon name="add"></ion-icon>
+      <ion-label>添加图书</ion-label>
+    </ion-button>
+  </ion-list>
+
+  <ion-modal
+    [isOpen]="isOpen"
+    [initialBreakpoint]="1"
+    [breakpoints]="[0, 1, 1]"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setIsOpen(false)">取消</ion-button>
+          </ion-buttons>
+          <ion-title>新图书</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="saveBook()">保存</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <div class="picture-container" *ngIf="Picture != ''">
+          <ion-img [src]="Picture"></ion-img>
+        </div>
+        <ion-button
+          fill="clear"
+          expand="full"
+          (click)="presentActionSheet()"
+        >
+          <ion-icon slot="start" name="image-outline"></ion-icon>
+          上传封面
+        </ion-button>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">ISBN</ion-label>
+            <ion-input [(ngModel)]="ISBN"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">书名</ion-label>
+            <ion-input [(ngModel)]="Title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">作家</ion-label>
+            <ion-select [(ngModel)]="AuthorId">
+              <ion-select-option
+                *ngFor="let author of authors"
+                [value]="author.Id"
+              >{{author.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">出版社</ion-label>
+            <ion-select [(ngModel)]="PublisherId">
+              <ion-select-option
+                *ngFor="let publisher of publishers"
+                [value]="publisher.Id"
+              >{{publisher.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">分类</ion-label>
+            <ion-select [(ngModel)]="CategoryId">
+              <ion-select-option
+                *ngFor="let category of categories"
+                [value]="category.Id"
+              >{{category.Title}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item
+            button
+            (click)="setIsOpenPublish(true)"
+          >
+            <ion-label position="stacked">出版日期</ion-label>
+            <ion-input [value]="publishDate"></ion-input>
+          </ion-item>
+          <ion-item
+            button
+            (click)="setIsOpenShop(true)"
+          >
+            <ion-label position="stacked">购买日期</ion-label>
+            <ion-input [value]="shopDate"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">阅读状态</ion-label>
+            <ion-select [(ngModel)]="ReadStatus">
+              <ion-select-option value="-1">暂未阅读</ion-select-option>
+              <ion-select-option value="0">正在阅读</ion-select-option>
+              <ion-select-option value="1">完成阅读</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">首字母</ion-label>
+            <ion-select [(ngModel)]="Letter">
+              <ion-select-option
+                *ngFor="let letter of letters"
+                [value]="letter"
+              >{{letter}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      
+        <ion-modal [isOpen]="isOpenPublish">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>出版日期</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setPublishDate()">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-item>
+                <ion-datetime
+                  size="cover"
+                  presentation="month-year"
+                  [(ngModel)]="publishDate"
+                ></ion-datetime>
+              </ion-item>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+        
+        <ion-modal [isOpen]="isOpenShop">
+          <ng-template>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>购买日期</ion-title>
+                <ion-buttons slot="end">
+                  <ion-button (click)="setShopDate()">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-header>
+            <ion-content>
+              <ion-item>
+                <ion-datetime
+                  size="cover"
+                  presentation="date"
+                  [(ngModel)]="shopDate"
+                ></ion-datetime>
+              </ion-item>
+            </ion-content>
+          </ng-template>
+        </ion-modal>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

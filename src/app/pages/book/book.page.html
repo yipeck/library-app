@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>图书信息</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img className="ion-img-detail" [alt]="books[0] && books[0].Title" [src]="books[0] && books[0].Picture"></ion-img>
+  <ion-list>
+    <ion-item>
+      <ion-label>ISBN: {{books[0] && books[0].ISBN}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>书名: {{books[0] && books[0].Title}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>作者: [{{books[0] && getCountryNameByAuthorId(books[0].AuthorId)}}]{{books[0] && getAuthorName(books[0].AuthorId)}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>出版社: {{books[0] && getPublisherName(books[0].PublisherId)}}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>出版时间: {{books[0] && books[0].PublishYear}}年{{books[0] && books[0].PublishMonth}}月</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>购买日期: {{books[0] && books[0].ShopYear}}年{{books[0] && books[0].ShopMonth}}月{{books[0] && books[0].ShopDay}}日</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>阅读状态</ion-label>
+      <ion-select
+        [value]="books[0] ? books[0].ReadStatus : -1"
+        (ionChange)="updateReadStatus($event, books[0].Id)"
+        (ionFocus)="setIsFocus()"
+      >
+        <ion-select-option value="-1">暂未阅读</ion-select-option>
+        <ion-select-option value="0">正在阅读</ion-select-option>
+        <ion-select-option value="1">完成阅读</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>分类</ion-label>
+      <ion-chip slot="end" color="primary">
+        <ion-icon name="pricetag-outline"></ion-icon>
+        <ion-label>{{books[0] && getCategoryTitleById(books[0].CategoryId)}}</ion-label>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+</ion-content>

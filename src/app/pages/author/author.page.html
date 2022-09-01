@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>作家</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="setIsOpen(true)">
+        <ion-icon name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngFor="let group of authors">
+    <ion-list-header>
+      <ion-label>{{group[0].Letter}}</ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let author of group">
+      <ion-item detail [routerLink]="['/list', 'author', author.Id]">
+        <ion-avatar slot="start" *ngIf="author.Avatar !=''">
+          <img [src]="author.Avatar" />
+        </ion-avatar>
+        <ion-label>{{author.Name}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option
+          expandable
+          color="primary"
+          (click)="handleEdit(author.Id)"
+        >
+          <ion-icon name="pencil-outline" slot="start"></ion-icon>
+          <ion-label>编辑</ion-label>
+        </ion-item-option>
+        <ion-item-option
+          expandable
+          color="danger"
+          (click)="handleDelete(author.Id)"
+        >
+          <ion-icon name="trash-outline" slot="start"></ion-icon>
+          <ion-label>删除</ion-label>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-modal
+    [isOpen]="isOpen"
+    [breakpoints]="[0.5, 0.9, 1]"
+    [initialBreakpoint]="0.9"
+    [backdropDismiss]="false"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="setIsOpen(false)">取消</ion-button>
+          </ion-buttons>
+          <ion-title>新作家</ion-title>
+          <ion-buttons slot="end">
+            <ion-button
+              (click)="saveAuthor()"
+              [disabled]="!(Name && CountryId && Letter)"
+            >保存</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-input type="hidden" [(ngModel)]="Id"></ion-input>
+        <div class="avatar-container" *ngIf="Avatar != ''">
+          <ion-avatar>
+            <img [src]="Avatar" />
+          </ion-avatar>
+        </div>
+        <ion-button
+          fill="clear"
+          expand="full"
+          (click)="selectAlbum()"
+        >
+          <ion-icon slot="start" name="image-outline"></ion-icon>
+          上传头像
+        </ion-button>
+        <ion-list>
+          <ion-item>
+            <ion-label position="stacked">姓名</ion-label>
+            <ion-input [(ngModel)]="Name"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">籍贯</ion-label>
+            <ion-select [(ngModel)]="CountryId">
+              <ion-select-option
+                *ngFor="let country of countries"
+                [value]="country.Id"
+              >{{country.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">首字母</ion-label>
+            <ion-select [(ngModel)]="Letter">
+              <ion-select-option
+                *ngFor="let letter of letters"
+                [value]="letter"
+              >{{letter}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

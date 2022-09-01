@@ -1,0 +1,200 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/setting"></ion-back-button>
+    </ion-buttons>
+    <ion-title>我的信息</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content">
+  <ion-list>
+    <ion-item
+      detail
+      lines="full"
+      (click)="setIsAvatarOpen(true)"
+    >
+      <ion-label>头像</ion-label>
+    </ion-item>
+    <ion-item
+      detail
+      lines="full"
+      (click)="setIsNickNameOpen(true)"
+    >
+      <ion-label>昵称</ion-label>
+    </ion-item>
+    <ion-item
+      detail
+      lines="none"
+      (click)="setIsSloganOpen(true)"
+    >
+      <ion-label>Slogan</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<!-- avatar modal -->
+<ion-modal
+  [isOpen]="isAvatarOpen"
+  [breakpoints]="[0.9, 0.9, 1]"
+  [initialBreakpoint]="0.9"
+  [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="setIsAvatarOpen(false)">取消</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            (click)="updateUser('Avatar')"
+            [disabled]="!tempAvatar"
+          >保存</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="avatar-container" *ngIf="tempAvatar != ''">
+        <ion-avatar>
+          <img [src]="tempAvatar" />
+        </ion-avatar>
+      </div>
+      <ion-button
+        fill="clear"
+        expand="full"
+        (click)="presentActionSheet()"
+      >
+        <ion-icon slot="start" name="image-outline"></ion-icon>
+        上传头像
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- nick name modal -->
+<ion-modal
+  [isOpen]="isNickNameOpen"
+  [breakpoints]="[0.9, 0.9, 1]"
+  [initialBreakpoint]="0.9"
+  [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="setIsNickNameOpen(false)">取消</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            (click)="updateUser('NickName')"
+            [disabled]="!tempNickName"
+          >保存</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">昵称</ion-label>
+          <ion-input [(ngModel)]="tempNickName"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- slogan modal -->
+<ion-modal
+  [isOpen]="isSloganOpen"
+  [breakpoints]="[0.9, 0.9, 1]"
+  [initialBreakpoint]="0.9"
+  [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="setIsSloganOpen(false)">取消</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            (click)="updateUser('Slogan')"
+            [disabled]="!tempSlogan"
+          >保存</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Slogan</ion-label>
+          <ion-textarea [(ngModel)]="tempSlogan"></ion-textarea>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- modal -->
+<ion-modal
+  [isOpen]="isOpen"
+  [breakpoints]="[0.9, 0.9, 1]"
+  [initialBreakpoint]="0.9"
+  [backdropDismiss]="false"
+>
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="setIsOpen(false)">取消</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            (click)="saveAuthor()"
+            [disabled]="!(Name && CountryId && Letter)"
+          >保存</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="avatar-container" *ngIf="Avatar != ''">
+        <ion-avatar>
+          <img [src]="Avatar" />
+        </ion-avatar>
+      </div>
+      <ion-button
+        fill="clear"
+        expand="full"
+        (click)="selectAlbum()"
+      >
+        <ion-icon slot="start" name="image-outline"></ion-icon>
+        上传头像
+      </ion-button>
+      <ion-list>
+        <ion-item lines="inset">
+          <ion-label position="stacked">姓名</ion-label>
+          <ion-input [(ngModel)]="Name"></ion-input>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label position="stacked">籍贯</ion-label>
+          <ion-select [(ngModel)]="CountryId">
+            <ion-select-option
+              *ngFor="let country of countries"
+              [value]="country.Id"
+            >{{country.Name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-label position="stacked">首字母</ion-label>
+          <ion-select [(ngModel)]="Letter">
+            <ion-select-option
+              *ngFor="let letter of letters"
+              [value]="letter"
+            >{{letter}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
