@@ -24,7 +24,7 @@ export class BookPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  isFocus: boolean = false;
+  isFocus = false;
   books: Book[] = [];
   authors: Author[] = [];
   categories: Category[] = [];
@@ -83,7 +83,7 @@ export class BookPage implements OnInit {
     
     this.bookService.updateReadStatus(this.authService.getAuthParams(), formData)
       .subscribe(async res => {
-        let message: string = '';
+        let message = '';
 
         if (readStatus == -1) {
           message = '阅读状态已更新为：暂未阅读';

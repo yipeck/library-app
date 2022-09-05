@@ -13,12 +13,12 @@ export class SignupPage implements OnInit {
     private userService: UserService
   ) { }
 
-  Email: string = '';
-  Password: string = '';
-  ConfirmPwd: string = '';
+  Email = '';
+  Password = '';
+  ConfirmPwd = '';
 
-  isEmailOkay: boolean = false;
-  isPasswordOkay: boolean = false;
+  isEmailOkay = false;
+  isPasswordOkay = false;
 
   signUp() {
     const formData = new FormData();
@@ -27,7 +27,7 @@ export class SignupPage implements OnInit {
     formData.append('password', this.Password);
     
     this.userService.signUp(formData).subscribe(async res => {
-      let message: string;
+      let message = '';
 
       if (res.Success) {
         message = '恭喜您，成功建馆！';
@@ -62,7 +62,7 @@ export class SignupPage implements OnInit {
         return;
       }
 
-      let message: string;
+      let message = '';
 
       if (res.Message !== '') {
         message = '服务器报错，请稍后再试！';

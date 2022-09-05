@@ -33,35 +33,35 @@ export class HomePage implements OnInit {
   letters = '#0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   authService: AuthService;
-  isOpen: boolean = false;
-  isOpenPublish: boolean = false;
-  isOpenShop: boolean = false;
+  isOpen = false;
+  isOpenPublish = false;
+  isOpenShop = false;
   authors: Author[] = [];
   categories: Category[] = [];
   countries: Country[] = [];
   publishers: Publisher[] = [];
   readingBooks: Book[] = [];
-  readedBooksCount: number = 0;
+  readedBooksCount = 0;
   boughtBooks: Book[] = [];
 
   initDate = new Date();
 
-  publishDate: string = format(this.initDate, 'yyyy-MM');
-  shopDate: string = format(this.initDate, 'yyyy-MM-dd');
+  publishDate = format(this.initDate, 'yyyy-MM');
+  shopDate = format(this.initDate, 'yyyy-MM-dd');
 
-  ISBN: string = '';
-  AuthorId: number = 0;
-  CategoryId: number = 0;
-  PublisherId: number = 0;
-  Title: string = '';
-  Picture: string = '';
-  PublishYear: string = format(this.initDate, 'yyyy');
-  PublishMonth: string = format(this.initDate, 'MM');
-  ShopYear: string = format(this.initDate, 'yyyy');
-  ShopMonth: string = format(this.initDate, 'MM');
-  ShopDay: string = format(this.initDate, 'dd');
-  ReadStatus: number = 0;
-  Letter: string = '';
+  ISBN = '';
+  AuthorId = 0;
+  CategoryId = 0;
+  PublisherId = 0;
+  Title = '';
+  Picture = '';
+  PublishYear = format(this.initDate, 'yyyy');
+  PublishMonth = format(this.initDate, 'MM');
+  ShopYear = format(this.initDate, 'yyyy');
+  ShopMonth = format(this.initDate, 'MM');
+  ShopDay = format(this.initDate, 'dd');
+  ReadStatus = 0;
+  Letter = '';
 
   setPublishDate() {
     const date = new Date(this.publishDate);

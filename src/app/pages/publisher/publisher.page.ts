@@ -20,11 +20,11 @@ export class PublisherPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  isOpen: boolean = false;
+  isOpen = false;
   publishers: Publisher[] = [];
 
-  Id: string = '';
-  Name: string = '';
+  Id = '';
+  Name = '';
 
   setIsOpen(value: boolean) {
     this.isOpen = value;

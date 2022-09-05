@@ -20,11 +20,11 @@ export class CountryPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  isOpen: boolean = false;
+  isOpen = false;
   countries: Country[] = [];
   
-  Id: string = '';
-  Name: string = '';
+  Id = '';
+  Name = '';
 
   setIsOpen(value: boolean) {
     this.isOpen = value;

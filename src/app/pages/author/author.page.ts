@@ -19,7 +19,6 @@ export class AuthorPage implements OnInit {
     private storage: Storage,
     private alertCtrl: AlertController,
     private imagePicker: ImagePicker,
-    private router: Router,
     private authorService: AuthorService,
     private bookService: BookService
   ) { }
@@ -27,15 +26,15 @@ export class AuthorPage implements OnInit {
   letters = '#ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   authService: AuthService;
-  isOpen: boolean = false;
+  isOpen = false;
   countries: Country[] = [];
   authors: Author[][] = [];
 
-  Id: number = 0;
-  Name: string = '';
-  CountryId: number = 0;
-  Avatar: string = '';
-  Letter: string = '';
+  Id = 0;
+  Name = '';
+  CountryId = 0;
+  Avatar = '';
+  Letter = '';
 
   setIsOpen(value: boolean) {
     this.isOpen = value;

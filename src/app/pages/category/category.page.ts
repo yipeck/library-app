@@ -23,11 +23,11 @@ export class CategoryPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  isOpenModal: boolean = false;
+  isOpenModal = false;
   categories: Category[] = [];
 
-  Id: string = '';
-  Title: string = '';
+  Id = '';
+  Title = '';
 
   setIsOpenModal(value: boolean) {
     this.isOpenModal = value;

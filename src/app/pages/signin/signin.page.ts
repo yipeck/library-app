@@ -27,11 +27,11 @@ export class SigninPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  Email: string = '';
-  Password: string = '';
+  Email = '';
+  Password = '';
 
-  isEmailOkay: boolean = false;
-  isPasswordOkay: boolean = false;
+  isEmailOkay = false;
+  isPasswordOkay = false;
 
   signIn() {
     const formData = new FormData();
@@ -40,7 +40,7 @@ export class SigninPage implements OnInit {
     formData.append('password', this.Password);
     
     this.userService.signIn(formData).subscribe(async res => {
-      let message: string;
+      let message = '';
 
       if (res.Success) {
         message = '恭喜您，入馆成功！';

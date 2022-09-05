@@ -25,8 +25,8 @@ export class ListPage implements OnInit {
 
   authService: AuthService;
 
-  title: string = '';
-  avatar: string = '';
+  title = '';
+  avatar = '';
   authors: Author[] = [];
   categories: Category[] = [];
   countries: Country[] = [];

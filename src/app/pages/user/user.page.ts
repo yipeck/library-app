@@ -21,18 +21,18 @@ export class UserPage implements OnInit {
   ) { }
 
   authService: AuthService;
-  isAvatarOpen: boolean = false;
-  isNickNameOpen: boolean = false;
-  isSloganOpen: boolean = false;
-  isPwdOpen: boolean = false;
+  isAvatarOpen = false;
+  isNickNameOpen = false;
+  isSloganOpen = false;
+  isPwdOpen = false;
 
-  Avatar: string = '';
-  NickName: string = '';
-  Slogan: string = '';
+  Avatar = '';
+  NickName = '';
+  Slogan = '';
 
-  tempAvatar: string = '';
-  tempNickName: string = '';
-  tempSlogan: string = '';
+  tempAvatar = '';
+  tempNickName = '';
+  tempSlogan = '';
 
   setIsAvatarOpen(value: boolean) {
     this.isAvatarOpen = value;
@@ -99,7 +99,7 @@ export class UserPage implements OnInit {
   }
 
   updateUser(attrName: string) {
-    let attrValue: string;
+    let attrValue = '';
     const formData = new FormData();
 
     switch(attrName) {
